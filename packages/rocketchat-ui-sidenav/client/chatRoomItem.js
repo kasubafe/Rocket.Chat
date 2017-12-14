@@ -8,6 +8,9 @@ Template.chatRoomItem.helpers({
 				name = this.fname;
 			}
 		}
+		if (this.groupChat) {
+			name = this.usernames.join(', ');
+		}
 
 		const openedRomm = Tracker.nonreactive(() => Session.get('openedRoom'));
 		const unread = this.unread > 0 ? this.unread : false;
