@@ -8,7 +8,7 @@ Template.chatRoomItem.helpers({
 				name = this.fname;
 			}
 		}
-		if (this.groupChat) {
+		if (this.t === 'g') {
 			name = this.usernames.join(', ');
 		}
 
