@@ -9,7 +9,8 @@ Template.chatRoomItem.helpers({
 			}
 		}
 		if (this.t === 'g') {
-			name = this.usernames.join(', ');
+			const username = this.u.username;
+			name = this.usernames.filter(function(u) { return u !== username; }).join(', ');
 		}
 
 		const openedRomm = Tracker.nonreactive(() => Session.get('openedRoom'));
