@@ -9,6 +9,9 @@ Template.chatRoomItem.helpers({
 			}
 		}
 		if (this.t === 'g') {
+			Meteor.call('getUsersOfRoom', this.rid, true, (error, users) => {
+				this.usernames = users.records.map(function(u) { return u.username; });
+			});
 			const username = this.u.username;
 			name = this.usernames.filter(function(u) { return u !== username; }).join(', ');
 		}
