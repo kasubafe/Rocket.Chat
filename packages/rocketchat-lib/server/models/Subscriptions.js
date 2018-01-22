@@ -746,7 +746,7 @@ class ModelSubscriptions extends RocketChat.models._Base {
 
 	getUsernames(room) {
 		if (!room.usernames) {
-			return null;
+			return [];
 		}
 		return room.usernames;
 	}
