@@ -743,6 +743,7 @@ class ModelSubscriptions extends RocketChat.models._Base {
 		};
 
 		return this.update(query, update, { multi: true });
+	}
 
 	getUsernames(room) {
 		if (!room.usernames) {

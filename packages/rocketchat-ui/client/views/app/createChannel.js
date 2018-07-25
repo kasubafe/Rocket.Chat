@@ -100,6 +100,7 @@ Template.createChannel.helpers({
 	},
 	roomTypeIsP() {
 		return Template.instance().type.get() === 'p';
+	},
 	groupChatLabel() {
 		return t(Template.instance().groupChat.get() ? t('Group_Chat') : t('Normal_Channel'));
 	},

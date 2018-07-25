@@ -36,7 +36,7 @@ const fields = {
 	sentiment: 1,
 	tokenpass: 1,
 	streamingOptions: 1,
-	broadcast: 1
+	broadcast: 1,
 	groupChat: 1
 };
 
