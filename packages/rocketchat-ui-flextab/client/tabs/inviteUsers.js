@@ -1,4 +1,5 @@
 import toastr from 'toastr';
+import _ from 'underscore';
 
 const acEvents = {
 	'click .rc-popup-list__item'(e, t) {
@@ -99,31 +100,28 @@ Template.inviteUsers.events({
 					return toastr.error(t(err.error));
 				}
 
+				const usersInRoom = roomUsers.records.map(({username}) => username).sort();
 				let allUsers = [];
 				allUsers.push(...usersToInvite);
-				allUsers.push(...roomUsers.records.map(({username}) => username));
-				let groupChatName = allUsers.sort().join('-');
-				Meteor.call('getRoomIdByNameOrId', groupChatName, function(err, result) {
+				allUsers.push(...usersInRoom);
+				allUsers = [...new Set(allUsers)].sort();
+				if (_.isEqual(allUsers, usersInRoom)) {
+					toastr.success('All users already in this room!');
+					return;
+				}
+				Meteor.call('createGroupChat', allUsers.sort().join('-'), allUsers, false, {}, {}, function(err, result) {
 					if (err) {
-						// The room either doesn't exist, or we do not have the rights to see it.
-						// We try to create it, assuming it does not exist. The group name contains our user name, so we should have rights to see it if it exists.
-						Meteor.call('createGroupChat', groupChatName, allUsers, false, {}, {}, function(err, result) {
-							if (err) {
-								return toastr.error(t(err.error));
-							}
-
-							return FlowRouter.go('groupchat', { name: result.name }, FlowRouter.current().queryParams);
-						});
-					} else {
-						return FlowRouter.go('groupchat', { name: groupChatName }, FlowRouter.current().queryParams);
+						return toastr.error(t(err.error));
 					}
+
+					return FlowRouter.go('groupchat', { name: result.name }, FlowRouter.current().queryParams);
 				});
 			});
 			instance.selectedUsers.set([]);
 		} else {
 			Meteor.call('addUsersToRoom', {
 				rid: rid,
-				usersToInvite
+				users: usersToInvite
 			}, function(err) {
 				if (err) {
 					return toastr.error(err);

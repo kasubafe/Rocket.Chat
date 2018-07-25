@@ -22,6 +22,6 @@ Meteor.methods({
 			})
 		}));
 
-		return RocketChat.createRoom('g', name, Meteor.user() && Meteor.user().username, members, readOnly, {customFields, ...extraData});
+		return RocketChat.createRoom('g', name + '-' + Random.id(), Meteor.user() && Meteor.user().username, members, readOnly, {customFields, ...extraData});
 	}
 });
