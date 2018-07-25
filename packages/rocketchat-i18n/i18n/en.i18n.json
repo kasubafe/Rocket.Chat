@@ -865,6 +865,8 @@
   "delete-c_description": "Permission to delete public channels",
   "delete-d": "Delete Direct Messages",
   "delete-d_description": "Permission to delete direct messages",
+  "delete-g": "Delete Group Chats",
+  "delete-g_description": "Permission to delete group chats",
   "delete-message": "Delete Message",
   "delete-message_description": "Permission to delete a message within a room",
   "delete-p": "Delete Private Channels",
