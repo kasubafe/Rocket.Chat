@@ -101,6 +101,9 @@ Template.createChannel.helpers({
 	roomTypeIsP() {
 		return Template.instance().type.get() === 'p';
 	},
+	isGroupChat() {
+		return Template.instance().groupChat.get();
+	},
 	groupChatLabel() {
 		return t(Template.instance().groupChat.get() ? t('Group_Chat') : t('Normal_Channel'));
 	},
@@ -132,7 +135,7 @@ Template.createChannel.helpers({
 		const inUse = instance.inUse.get();
 		const name = instance.name.get();
 
-		if ((!instance.groupChat.get() && name.length === 0) || invalid || inUse === true || inUse === undefined || extensions_invalid) {
+		if ((!instance.groupChat.get() && name.length === 0) || invalid || inUse === true || (inUse === undefined && !instance.groupChat.get()) || extensions_invalid) {
 			return 'disabled';
 		}
 		return '';
@@ -321,7 +324,7 @@ Template.createChannel.onCreated(function() {
 	this.type = new ReactiveVar(RocketChat.authz.hasAllPermission(['create-p']) ? 'p' : 'c');
 	this.readOnly = new ReactiveVar(false);
 	this.broadcast = new ReactiveVar(false);
-	this.groupChat = new ReactiveVar(false);
+	this.groupChat = new ReactiveVar(true);
 	this.noUsers = new ReactiveVar(false);
 	this.inUse = new ReactiveVar(undefined);
 	this.invalid = new ReactiveVar(false);
