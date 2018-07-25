@@ -91,9 +91,10 @@
 		{{/with}}
 
 		{{#with settings.t2}}
+		{{#if canView}}
 			<div class="rc-user-info__row rc-user-info__row--separator">
 				<div class="rc-switch-double">
-					<div class="rc-switch-double__label  {{equal true value 'disabled'}}">
+					<div class="rc-switch-double__label  {{equal false value 'disabled'}}">
 						{{_ "Group_Chat"}}{{equal default value '*'}}
 						<div class="rc-switch-double__description">
 							{{_ "Direct_messages_between_multiple_users"}}
@@ -107,7 +108,7 @@
 							</span>
 						</label>
 					</div>
-					<div class="rc-switch-double__label {{equal false value 'disabled'}}">
+					<div class="rc-switch-double__label {{equal true value 'disabled'}}">
 						{{_ "Private"}}
 						<div class="rc-switch-double__description">
 							{{_ "Just_invited_people_can_access_this_channel"}}
@@ -116,6 +117,7 @@
 
 				</div>
 			</div>
+		{{/if}}
 		{{/with}}
 
 		{{#with settings.ro}}

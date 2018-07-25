@@ -157,10 +157,10 @@ Template.channelSettingsEditing.onCreated(function() {
 			isToggle: true,
 			processing: new ReactiveVar(false),
 			getValue() {
-				return room.t === 'p';
+				return room.t === 'p' || room.t === 'g' || room.t === 'd';
 			},
 			disabled() {
-				return room['default'] && !RocketChat.authz.hasRole(Meteor.userId(), 'admin') || room.t === 'g';
+				return room['default'] && !RocketChat.authz.hasRole(Meteor.userId(), 'admin') || room.t === 'g' || room.t === 'd';
 			},
 			message() {
 				if (RocketChat.authz.hasAllPermission('edit-room', room._id) && room['default']) {

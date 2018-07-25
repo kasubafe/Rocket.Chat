@@ -63,6 +63,7 @@ export class GroupChatRoomType extends RoomTypeConfig {
 	allowRoomSettingChange(room, setting) {
 		switch (setting) {
 			case RoomSettingsEnum.JOIN_CODE:
+			case RoomSettingsEnum.NAME:
 				return false;
 			default:
 				return true;
