@@ -11,58 +11,6 @@
 				<p class="create-channel__description">{{_ "Channels_are_where_your_team_communicate"}}</p>
 			</header>
 			<form class="create-channel__content">
-				<div class="create-channel__switches">
-					<div class="rc-switch">
-						<label class="rc-switch__label" tabindex="-1">
-							<input type="checkbox" class="rc-switch__input" name="type" value="p" checked={{roomTypeIsP}} disabled="{{cantCreateBothTypes}}">
-							<span class="rc-switch__button">
-								<span class="rc-switch__button-inside"></span>
-							</span>
-							<span class="rc-switch__text">
-								{{typeLabel}}
-							</span>
-						</label>
-						<span class="rc-switch__description">{{typeDescription}}</span>
-					</div>
-					<div class="rc-switch">
-						<label class="rc-switch__label">
-							<input type="checkbox" class="rc-switch__input" name="readOnly" checked={{readOnly}} disabled="{{broadcast}}">
-							<span class="rc-switch__button">
-							<span class="rc-switch__button-inside"></span>
-						</span>
-							<span class="rc-switch__text">
-								{{_ "Read_only_channel"}}
-							</span>
-						</label>
-						<span class="rc-switch__description">{{readOnlyDescription}}</span>
-					</div>
-					<div class="rc-switch">
-						<label class="rc-switch__label">
-							<input type="checkbox" class="rc-switch__input" name="broadcast">
-							<span class="rc-switch__button">
-							<span class="rc-switch__button-inside"></span>
-						</span>
-							<span class="rc-switch__text">
-								{{_"Broadcast_channel"}}
-							</span>
-						</label>
-						<span class="rc-switch__description">
-							{{_"Broadcast_channel_Description"}}
-						</span>
-					</div>
-					<div class="rc-switch">
-						<label class="rc-switch__label">
-							<input type="checkbox" class="rc-switch__input" name="groupChat" {{privateIsDisabled}}>
-							<span class="rc-switch__button">
-								<span class="rc-switch__button-inside"></span>
-							</span>
-							<span class="rc-switch__text">
-								{{groupChatLabel}}
-							</span>
-						</label>
-						<span class="rc-switch__description">{{groupChatDescription}}</span>
-					</div>
-				</div>
 				<div class="create-channel__inputs">
 					<div class="rc-input {{#if invalidChannel}}rc-input--error{{/if}}">
 						<label class="rc-input__label">
@@ -117,6 +65,59 @@
 								<div class="rc-input__error-message">{{_ "Not_enough_users_static"}}</div>
 							</div>
 						{{/if}}
+					</div>
+				</div>
+
+				<div class="create-channel__switches">
+					<div class="rc-switch">
+						<label class="rc-switch__label">
+							<input type="checkbox" class="rc-switch__input" name="groupChat" {{privateIsDisabled}}>
+							<span class="rc-switch__button">
+								<span class="rc-switch__button-inside"></span>
+							</span>
+							<span class="rc-switch__text">
+								{{groupChatLabel}}
+							</span>
+						</label>
+						<span class="rc-switch__description">{{groupChatDescription}}</span>
+					</div>
+					<div class="rc-switch">
+						<label class="rc-switch__label" tabindex="-1">
+							<input type="checkbox" class="rc-switch__input" name="type" value="p" checked={{roomTypeIsP}} disabled="{{cantCreateBothTypes}}">
+							<span class="rc-switch__button">
+								<span class="rc-switch__button-inside"></span>
+							</span>
+							<span class="rc-switch__text">
+								{{typeLabel}}
+							</span>
+						</label>
+						<span class="rc-switch__description">{{typeDescription}}</span>
+					</div>
+					<div class="rc-switch">
+						<label class="rc-switch__label">
+							<input type="checkbox" class="rc-switch__input" name="readOnly" checked={{readOnly}} disabled="{{broadcast}}">
+							<span class="rc-switch__button">
+							<span class="rc-switch__button-inside"></span>
+						</span>
+							<span class="rc-switch__text">
+								{{_ "Read_only_channel"}}
+							</span>
+						</label>
+						<span class="rc-switch__description">{{readOnlyDescription}}</span>
+					</div>
+					<div class="rc-switch">
+						<label class="rc-switch__label">
+							<input type="checkbox" class="rc-switch__input" name="broadcast">
+							<span class="rc-switch__button">
+							<span class="rc-switch__button-inside"></span>
+						</span>
+							<span class="rc-switch__text">
+								{{_"Broadcast_channel"}}
+							</span>
+						</label>
+						<span class="rc-switch__description">
+							{{_"Broadcast_channel_Description"}}
+						</span>
 					</div>
 				</div>
 				{{#if tokenAccessEnabled}}
