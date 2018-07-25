@@ -253,7 +253,9 @@ Template.createChannel.events({
 				instance.noUsers.set(true);
 				return e.target.users.focus();
 			}
-			name = users.sort().join('-');
+			let allUsers = users;
+			allUsers.push(Meteor.user().username);
+			name = allUsers.sort().join('-');
 			method = 'createGroupChat';
 			route = 'groupchat';
 		}
@@ -272,7 +274,12 @@ Template.createChannel.events({
 					return instance.invalid.set(true);
 				}
 				if (err.error === 'error-duplicate-channel-name') {
-					return instance.inUse.set(true);
+					Meteor.call('getRoomIdByNameOrId', name, function(err, result) {
+						if (err) {
+							return instance.inUse.set(true);
+						}
+						return FlowRouter.go(route, { name: name }, FlowRouter.current().queryParams);
+					});
 				}
 				return;
 			}
