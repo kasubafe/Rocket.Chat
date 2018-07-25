@@ -52,7 +52,7 @@ RocketChat.statistics.get = function _getStatistics() {
 	statistics.totalRooms = RocketChat.models.Rooms.find().count();
 	statistics.totalChannels = RocketChat.models.Rooms.findByType('c').count();
 	statistics.totalPrivateGroups = RocketChat.models.Rooms.findByType('p').count();
-	statistics.totalDirect = RocketChat.models.Rooms.findByType('d').count();
+	statistics.totalDirect = RocketChat.models.Rooms.findByType('d').count() + RocketChat.models.Rooms.findByType('g').count();
 	statistics.totalLivechat = RocketChat.models.Rooms.findByType('l').count();
 
 	// Message statistics
@@ -60,6 +60,7 @@ RocketChat.statistics.get = function _getStatistics() {
 	statistics.totalChannelMessages = _.reduce(RocketChat.models.Rooms.findByType('c', { fields: { 'msgs': 1 }}).fetch(), function _countChannelMessages(num, room) { return num + room.msgs; }, 0);
 	statistics.totalPrivateGroupMessages = _.reduce(RocketChat.models.Rooms.findByType('p', { fields: { 'msgs': 1 }}).fetch(), function _countPrivateGroupMessages(num, room) { return num + room.msgs; }, 0);
 	statistics.totalDirectMessages = _.reduce(RocketChat.models.Rooms.findByType('d', { fields: { 'msgs': 1 }}).fetch(), function _countDirectMessages(num, room) { return num + room.msgs; }, 0);
+	statistics.totalDirectMessages += _.reduce(RocketChat.models.Rooms.findByType('g', { fields: { 'msgs': 1 }}).fetch(), function _countDirectMessages(num, room) { return num + room.msgs; }, 0);
 	statistics.totalLivechatMessages = _.reduce(RocketChat.models.Rooms.findByType('l', { fields: { 'msgs': 1 }}).fetch(), function _countLivechatMessages(num, room) { return num + room.msgs; }, 0);
 
 	statistics.lastLogin = RocketChat.models.Users.getLastLogin();
