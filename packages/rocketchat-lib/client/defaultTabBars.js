@@ -38,7 +38,7 @@ RocketChat.TabBar.addButton({
 });
 
 RocketChat.TabBar.addButton({
-	groups: ['channel', 'group'],
+	groups: ['channel', 'group', 'groupchat', 'direct'],
 	id: 'addUsers',
 	i18nTitle: 'Add_users',
 	icon: 'user-plus',

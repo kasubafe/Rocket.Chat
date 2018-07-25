@@ -89,18 +89,49 @@ Template.inviteUsers.events({
 		t.userFilter.set(modified);
 	},
 	'click .js-add'(e, instance) {
-		const users = instance.selectedUsers.get().map(({username}) => username);
+		const usersToInvite = instance.selectedUsers.get().map(({username}) => username);
+		const rid = Session.get('openedRoom');
+		const roomData = Session.get(`roomData${ rid }`);
+		if (roomData.t === 'd') {
+			// We must not add users to direct messages, but we can create a new group chat with the selected people
+			Meteor.call('getUsersOfRoom', rid, true, (err, roomUsers) => {
+				if (err) {
+					return toastr.error(t(err.error));
+				}
 
-		Meteor.call('addUsersToRoom', {
-			rid: Session.get('openedRoom'),
-			users
-		}, function(err) {
-			if (err) {
-				return toastr.error(err);
-			}
-			toastr.success(t('Users_added'));
+				let allUsers = [];
+				allUsers.push(...usersToInvite);
+				allUsers.push(...roomUsers.records.map(({username}) => username));
+				let groupChatName = allUsers.sort().join('-');
+				Meteor.call('getRoomIdByNameOrId', groupChatName, function(err, result) {
+					if (err) {
+						// The room either doesn't exist, or we do not have the rights to see it.
+						// We try to create it, assuming it does not exist. The group name contains our user name, so we should have rights to see it if it exists.
+						Meteor.call('createGroupChat', groupChatName, allUsers, false, {}, {}, function(err, result) {
+							if (err) {
+								return toastr.error(t(err.error));
+							}
+
+							return FlowRouter.go('groupchat', { name: result.name }, FlowRouter.current().queryParams);
+						});
+					} else {
+						return FlowRouter.go('groupchat', { name: groupChatName }, FlowRouter.current().queryParams);
+					}
+				});
+			});
 			instance.selectedUsers.set([]);
-		});
+		} else {
+			Meteor.call('addUsersToRoom', {
+				rid: rid,
+				usersToInvite
+			}, function(err) {
+				if (err) {
+					return toastr.error(err);
+				}
+				toastr.success(t('Users_added'));
+				instance.selectedUsers.set([]);
+			});
+		}
 	}
 });
 
