@@ -81,7 +81,7 @@ Template.adminRooms.onCreated(function() {
 		const filter = instance.filter.get();
 		let types = instance.types.get();
 		if (types.length === 0) {
-			types = ['c', 'd', 'p'];
+			types = ['c', 'd', 'p', 'g'];
 		}
 		const limit = instance.limit.get();
 		const subscription = instance.subscribe('adminRooms', filter, types, limit);

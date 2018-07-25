@@ -41,6 +41,10 @@ export class GroupChatRoomType extends RoomTypeConfig {
 		return roomData.name;
 	}
 
+	getDisplayName(room) {
+		return room.usernames.sort().join(' x ');
+	}
+
 	condition() {
 		const user = Meteor.user();
 		const roomsListExhibitionMode = RocketChat.getUserPreference(user, 'roomsListExhibitionMode');
