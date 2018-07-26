@@ -124,7 +124,7 @@ Template.inviteUsers.events({
 				users: usersToInvite
 			}, function(err) {
 				if (err) {
-					return toastr.error(err);
+					return toastr.error(t(err.error));
 				}
 				toastr.success(t('Users_added'));
 				instance.selectedUsers.set([]);
