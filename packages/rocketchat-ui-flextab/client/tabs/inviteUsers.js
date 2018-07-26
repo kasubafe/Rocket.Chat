@@ -114,7 +114,14 @@ Template.inviteUsers.events({
 						return toastr.error(t(err.error));
 					}
 
-					return FlowRouter.go('groupchat', { name: result.name }, FlowRouter.current().queryParams);
+					// Copy a configurable amount of message history to the new group chat, so new joiners have some context.
+					Meteor.call('copyRoomHistory', rid, result.rid, RocketChat.settings.get('Message_CopyHistoryAmount_Seconds'), function(err, r) {
+						if (err) {
+							toastr.error(t(err.error));
+						}
+
+						return FlowRouter.go('groupchat', { name: result.name }, FlowRouter.current().queryParams);
+					});
 				});
 			});
 			instance.selectedUsers.set([]);

@@ -1454,6 +1454,11 @@ RocketChat.settings.addGroup('Message', function() {
 			}
 		]
 	});
+
+	this.add('Message_CopyHistoryAmount_Seconds', 0, {
+		type: 'int',
+		'public': true
+	});
 });
 
 RocketChat.settings.addGroup('Meta', function() {
