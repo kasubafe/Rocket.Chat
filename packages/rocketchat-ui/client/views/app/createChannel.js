@@ -324,7 +324,7 @@ Template.createChannel.onCreated(function() {
 	this.type = new ReactiveVar(RocketChat.authz.hasAllPermission(['create-p']) ? 'p' : 'c');
 	this.readOnly = new ReactiveVar(false);
 	this.broadcast = new ReactiveVar(false);
-	this.groupChat = new ReactiveVar(true);
+	this.groupChat = new ReactiveVar(RocketChat.settings.get('Default_to_creating_group_chat'));
 	this.noUsers = new ReactiveVar(false);
 	this.inUse = new ReactiveVar(undefined);
 	this.invalid = new ReactiveVar(false);

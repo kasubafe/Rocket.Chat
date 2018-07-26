@@ -860,6 +860,7 @@
   "Deactivate": "Deactivate",
   "Decline": "Decline",
   "Default": "Default",
+  "Default_to_creating_group_chat": "Group Chat as Default Channel Type",
   "Delete": "Delete",
   "delete-c": "Delete Public Channels",
   "delete-c_description": "Permission to delete public channels",
