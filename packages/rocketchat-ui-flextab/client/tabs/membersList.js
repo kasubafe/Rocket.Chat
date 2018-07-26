@@ -32,6 +32,7 @@ Template.membersList.helpers({
 	roomUsers() {
 		const onlineUsers = RoomManager.onlineUsers.get();
 		const roomUsers = Template.instance().users.get();
+		const rid = this.rid;
 		const room = ChatRoom.findOne(this.rid);
 		const roomMuted = (room != null ? room.muted : undefined) || [];
 		const userUtcOffset = Meteor.user() && Meteor.user().utcOffset;
@@ -47,6 +48,33 @@ Template.membersList.helpers({
 		}
 		if (filter && reg) {
 			users = users.filter(user => reg.test(user.username) || reg.test(user.name));
+		}
+
+		const getUserRoles = function(user) {
+			if (!RocketChat.settings.get('UI_DisplayRoles') || RocketChat.getUserPreference(user, 'hideRoles')) {
+				return [];
+			}
+
+			/* globals UserRoles RoomRoles */
+			const userRoles = UserRoles.findOne(user._id);
+			const roomRoles = RoomRoles.findOne({
+				'u._id': user._id,
+				rid: rid
+			});
+			const roles = [...(userRoles && userRoles.roles) || [], ...(roomRoles && roomRoles.roles) || []];
+			return RocketChat.models.Roles.find({
+				_id: {
+					$in: roles
+				},
+				description: {
+					$exists: 1,
+					$ne: ''
+				}
+			}, {
+				fields: {
+					description: 1
+				}
+			});
 		}
 
 		users = users.map(function(user) {
@@ -70,7 +98,8 @@ Template.membersList.helpers({
 				user,
 				status: (onlineUsers[user.username] != null ? onlineUsers[user.username].status : 'offline'),
 				muted: Array.from(roomMuted).includes(user.username),
-				utcOffset
+				utcOffset,
+				roleTags: getUserRoles(user)
 			};
 		});
 

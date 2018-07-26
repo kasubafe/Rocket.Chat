@@ -38,6 +38,13 @@
 								<div class="rc-member-list__username">
 									<div class="rc-member-list__status rc-member-list__status--{{status}}"></div>
 									{{ignored}} {{displayName}} {{utcOffset}}
+									<span class="message" style="padding: 0; margin-left: 20px; min-height: 0;">
+										<span class="info">
+										{{#each roleTags}}
+											<span class="role-tag background-info-font-color" data-role="{{description}}">{{description}}</span>
+										{{/each}}
+										</span>
+									</span>
 									</div>
 								{{> icon user=. block="rc-member-list__menu js-action" icon="menu" }}
 							</li>
