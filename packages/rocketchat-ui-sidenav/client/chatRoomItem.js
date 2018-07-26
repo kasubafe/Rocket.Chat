@@ -8,21 +8,14 @@ Template.chatRoomItem.helpers({
 				name = this.fname;
 			}
 		}
-		if (this.t === 'g') {
-			Meteor.call('getUsersOfRoom', this.rid, true, (error, users) => {
-				this.usernames = users.records.map(function(u) { return u.username; });
-			});
-			const username = this.u.username;
-			name = this.usernames.filter(function(u) { return u !== username; }).join(', ');
-		}
 
-		const openedRomm = Tracker.nonreactive(() => Session.get('openedRoom'));
+		const openedRoom = Tracker.nonreactive(() => Session.get('openedRoom'));
 		const unread = this.unread > 0 ? this.unread : false;
-		// if (this.unread > 0 && (!hasFocus || openedRomm !== this.rid)) {
+		// if (this.unread > 0 && (!hasFocus || openedRoom !== this.rid)) {
 		// 	unread = this.unread;
 		// }
 
-		const active = [this.rid, this._id].includes(id => id === openedRomm);
+		const active = [this.rid, this._id].includes(id => id === openedRoom);
 
 		const archivedClass = this.archived ? 'archived' : false;
 

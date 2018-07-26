@@ -54,6 +54,11 @@ Meteor.methods({
 			});
 		}
 
+		// Nothing to do
+		if (data.users.length === 0) {
+			return true;
+		}
+
 		// Validate each user, then add to room
 		data.users.forEach((username) => {
 			const newUser = RocketChat.models.Users.findOneByUsername(username);
@@ -65,6 +70,11 @@ Meteor.methods({
 
 			RocketChat.addUserToRoom(data.rid, newUser, user);
 		});
+
+		// Rename the group chat to reflect current members and force a refresh in clients
+		if (room.t === 'g') {
+			RocketChat.saveRoomName(data.rid, [...room.usernames.sort(), Random.id()].join('-'), user, false);
+		}
 
 		return true;
 	}

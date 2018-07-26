@@ -21,6 +21,10 @@ Template.sidebarItem.helpers({
 	mySelf() {
 		return this.t === 'd' && this.name === Template.instance().user.username;
 	},
+	fixedName() {
+		const username = Meteor.user().username;
+		return this.t !== 'g' ? this.name : this.name.split('-').slice(0,-1).filter((u) => u !== username).sort().join(', ');
+	},
 	isLivechatQueue() {
 		return this.pathSection === 'livechat-queue';
 	}
