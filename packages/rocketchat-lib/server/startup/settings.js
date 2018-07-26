@@ -1657,6 +1657,10 @@ RocketChat.settings.addGroup('Layout', function() {
 			type: 'boolean',
 			public: true
 		});
+		this.add('UI_Warn_when_hiding_rooms', true, {
+			type: 'boolean',
+			public: true
+		});
 	});
 });
 

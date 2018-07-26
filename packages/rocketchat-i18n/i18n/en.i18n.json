@@ -2508,6 +2508,7 @@
   "UI_Unread_Counter_Style": "Unread Counter Style",
   "UI_Use_Name_Avatar": "Use Full Name Initials to Generate Default Avatar",
   "UI_Use_Real_Name": "Use Real Name",
+  "UI_Warn_when_hiding_rooms": "Show warning when hiding rooms",
   "Unarchive": "Unarchive",
   "unarchive-room": "Unarchive Room",
   "unarchive-room_description": "Permission to unarchive channels",

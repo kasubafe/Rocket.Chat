@@ -2,22 +2,7 @@ import { call, UiTextContext } from 'meteor/rocketchat:lib';
 
 export function hide(type, rid, name) {
 	const warnText = RocketChat.roomTypes.roomTypes[type].getUiText(UiTextContext.HIDE_WARNING);
-
-	modal.open({
-		title: t('Are_you_sure'),
-		text: warnText ? t(warnText, name) : '',
-		type: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#DD6B55',
-		confirmButtonText: t('Yes_hide_it'),
-		cancelButtonText: t('Cancel'),
-		closeOnConfirm: true,
-		dontAskAgain: {
-			action: 'hideRoom',
-			label: t('Hide_room')
-		},
-		html: false
-	}, async function() {
+	const hideInternal = async function() {
 		if (['channel', 'group', 'direct'].includes(FlowRouter.getRouteName()) && (Session.get('openedRoom') === rid)) {
 			FlowRouter.go('home');
 		}
@@ -26,7 +11,27 @@ export function hide(type, rid, name) {
 		if (rid === Session.get('openedRoom')) {
 			Session.delete('openedRoom');
 		}
-	});
+	};
+
+	if (RocketChat.settings.get('UI_Warn_when_hiding_rooms')) {
+		modal.open({
+			title: t('Are_you_sure'),
+			text: warnText ? t(warnText, name) : '',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#DD6B55',
+			confirmButtonText: t('Yes_hide_it'),
+			cancelButtonText: t('Cancel'),
+			closeOnConfirm: true,
+			dontAskAgain: {
+				action: 'hideRoom',
+				label: t('Hide_room')
+			},
+			html: false
+		}, hideInternal);
+	} else {
+		hideInternal();
+	}
 	return false;
 }
 
