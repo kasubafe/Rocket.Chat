@@ -321,6 +321,7 @@ RocketChat.API.v1.addRoute('users.setPreferences', { authRequired: true }, {
 			data: Match.ObjectIncluding({
 				newRoomNotification: Match.Maybe(String),
 				newMessageNotification: Match.Maybe(String),
+				alwaysUseLongTimeFormat: Match.Maybe(Boolean),
 				useEmojis: Match.Maybe(Boolean),
 				convertAsciiEmoji: Match.Maybe(Boolean),
 				saveMobileBandwidth: Match.Maybe(Boolean),

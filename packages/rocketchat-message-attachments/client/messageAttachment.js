@@ -49,7 +49,8 @@ Template.messageAttachment.helpers({
 	time() {
 		const messageDate = new Date(this.ts);
 		const today = new Date();
-		if (messageDate.toDateString() === today.toDateString()) {
+		const user = Meteor.user();
+		if (RocketChat.getUserPreference(user, 'alwaysUseLongTimeFormat') === false && messageDate.toDateString() === today.toDateString()) {
 			return moment(this.ts).format(RocketChat.settings.get('Message_TimeFormat'));
 		} else {
 			return moment(this.ts).format(RocketChat.settings.get('Message_TimeAndDateFormat'));

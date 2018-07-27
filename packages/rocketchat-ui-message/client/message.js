@@ -103,6 +103,11 @@ Template.message.helpers({
 	date() {
 		return moment(this.ts).format(RocketChat.settings.get('Message_DateFormat'));
 	},
+	displayTime() {
+		const user = Meteor.user();
+		const userPref = RocketChat.getUserPreference(user, 'alwaysUseLongTimeFormat');
+		return moment(this.ts).format(userPref === true ? RocketChat.settings.get('Message_TimeAndDateFormat') : RocketChat.settings.get('Message_TimeFormat'));
+	},
 	isTemp() {
 		if (this.temp === true) {
 			return 'temp';

@@ -259,6 +259,11 @@ RocketChat.settings.addGroup('Accounts', function() {
 			'public': true,
 			i18nLabel: 'Unread_Tray_Icon_Alert'
 		});
+		this.add('Accounts_Default_User_Preferences_alwaysUseLongTimeFormat', false, {
+			type: 'boolean',
+			'public': true,
+			i18nLabel: 'Message_AlwaysUseLongTimeFormat'
+		});
 		this.add('Accounts_Default_User_Preferences_useEmojis', true, {
 			type: 'boolean',
 			'public': true,

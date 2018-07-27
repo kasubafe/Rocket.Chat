@@ -10,6 +10,7 @@ export const preferences = {
 		newRoomNotification: 'door',
 		newMessageNotification: 'chime',
 		muteFocusedConversations: true,
+		alwaysUseLongTimeFormat: false,
 		useEmojis: true,
 		convertAsciiEmoji: true,
 		saveMobileBandwidth: true,

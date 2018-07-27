@@ -1706,6 +1706,7 @@
   "Message_AllowUnrecognizedSlashCommand": "Allow Unrecognized Slash Commands",
   "Message_AlwaysSearchRegExp": "Always Search Using RegExp",
   "Message_AlwaysSearchRegExp_Description": "We recommend to set `True` if your language is not supported on <a target=\"_blank\" href=\"https://docs.mongodb.org/manual/reference/text-search-languages/#text-search-languages\">MongoDB text search</a>.",
+  "Message_AlwaysUseLongTimeFormat": "Always Show Date in Message Timestamp",
   "Message_Attachments": "Message Attachments",
   "Message_Attachments_GroupAttach": "Group Attachment Buttons",
   "Message_Attachments_GroupAttachDescription": "This groups the icons under an expandable menu. Takes up less screen space.",
